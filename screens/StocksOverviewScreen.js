@@ -3,20 +3,26 @@ import { View, Text, Button } from 'react-native'
 
 import { connect } from 'react-redux'
 
+import { fetchStocks } from '../redux/actions/stocks'
+
 const StocksOverviewScreen = (props) => {
-    useEffect(() => { printmessage() }, [printmessage])
 
     useEffect(() => {
+        console.log('Use Effect')
+        props.fetchStocks()
+    }, [fetchStocks])
+
+    /**  useEffect(() => {
         const willFocusSub = props.navigation.addListener(
-            'willFocus',
-            printmessage
-        );
-        return () => {
-            willFocusSub.remove();
-        };
-    }, [printmessage]);
-
-
+             'willFocus',
+             printmessage
+         );
+         return () => {
+             willFocusSub.remove();
+         };
+     }, [printmessage]);
+ 
+ */
     const printmessage = () => {
         return console.log('S-a incarcat')
     }
@@ -33,4 +39,4 @@ const mapStateToProps = state => ({
     stocks: state.stocks
 })
 
-export default connect(mapStateToProps, {})(StocksOverviewScreen)
+export default connect(mapStateToProps, { fetchStocks })(StocksOverviewScreen)
